@@ -30,7 +30,7 @@ The **Show-WingetInfo** script launches a Windows form that provides a method to
 
 Perform the following prerequisite steps:
 
-- Install the [Microsoft .NET 9.x SDK](https://dotnet.microsoft.com/en-us/download/dotnet/9.0) on your development machine.
+- Install the [Microsoft .NET 10.x SDK](https://dotnet.microsoft.com/en-us/download/dotnet/10.0) on your development machine.
 - Clone the repository to your development machine.
 
 Use any of the below workflows to create an executable file of the PowerShell script that is compatible with the framework version specified:
