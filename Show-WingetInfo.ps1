@@ -48,7 +48,6 @@ $ShowFormMain =
     $FormMain.MaximizeBox = $false
     $FormMain.AcceptButton = $ButtonRun
     $FormMain.CancelButton = $ButtonClose
-    $FormMain.Add_Load($FormMain_Load)
     $FormMain.Add_Shown($FormMain_Shown)
 
     $GroupBoxMain.Location = New-Object -TypeName System.Drawing.Point(10,5)
@@ -195,14 +194,21 @@ function Get-WingetData
 #region Handlers
 $FormMain_Shown =
 {
-    $ToolStripStatusLabelMain.Text = "Ready"
-    $StatusStripMain.Update()
-    $FormMain.Activate()
-}
-
-$FormMain_Load =
-{
-    Get-WingetData
+    Invoke-FormAction -Action {
+        try
+        {
+            Get-WingetData
+        }
+        catch
+        {
+            [void][System.Windows.Forms.MessageBox]::Show(
+                $PSItem.Exception.Message + "`n`nPlease contact $SUPPORT_CONTACT for technical support.",
+                "Exception",
+                [System.Windows.Forms.MessageBoxButtons]::OK,
+                [System.Windows.Forms.MessageBoxIcon]::Warning
+            )
+        }
+    }
 }
 
 $ButtonRun_Click =
