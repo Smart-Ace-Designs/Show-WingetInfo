@@ -60,7 +60,7 @@ $ShowFormMain =
     
     $DataGridViewApps.Location = New-Object -TypeName System.Drawing.Point(15,35)
     $DataGridViewApps.Size = New-Object -TypeName System.Drawing.Size(($FormWidth - 50),($FormHeight - 165))
-    $DataGridViewApps.TabStop = $false
+    $DataGridViewApps.TabIndex = 0
     $DataGridViewApps.RowTemplate.Height = 20
     $DataGridViewApps.DataBindings.DefaultDataSourceUpdateMode = [System.Windows.Forms.DataSourceUpdateMode]::OnValidation
     $DataGridViewApps.ScrollBars = [System.Windows.Forms.ScrollBars]::Vertical
@@ -74,11 +74,13 @@ $ShowFormMain =
     $DataGridViewApps.Columns[0].Name = "Application Name"
     $DataGridViewApps.Columns[1].Name = "Installed Version"
     $DataGridViewApps.Columns[2].Name = "Update Available"
+    $DataGridViewApps.StandardTab = $true
     $GroupBoxMain.Controls.Add($DataGridViewApps)
 
     $CheckBoxOutdated.Location = New-Object -TypeName System.Drawing.Point(15,($FormHeight - 115))
-    $CheckBoxOutdated.Text = "Outdated Applications"
     $CheckBoxOutdated.AutoSize = $true
+    $CheckBoxOutdated.TabIndex = 1
+    $CheckBoxOutdated.Text = "Outdated Applications"
     $CheckBoxOutdated.Add_CheckedChanged($CheckBoxOutdated_CheckedChanged)
     $GroupBoxMain.Controls.Add($CheckBoxOutdated)
 
