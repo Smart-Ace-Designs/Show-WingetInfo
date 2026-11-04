@@ -9,7 +9,7 @@ This repository contains all files required to build the **Show-WingetInfo** Scr
 
 The **Show-WingetInfo** script launches a Windows form that provides a method to display current application information on the local computer via the [Windows Package Manager (WinGet)](https://learn.microsoft.com/en-us/windows/package-manager/) tool. The form includes an option to display only applications with available updates.
 
-<img width="804" height="414" alt="Show-WingetInfo" src="https://github.com/user-attachments/assets/7de7a307-fd31-40e3-8414-ce6d4df0f46f" />
+<img width="804" height="444" alt="checkbox" src="https://github.com/user-attachments/assets/a147d8c9-0aaf-4c7e-aca8-91973afe20bb" />
 
 ## Requirements
 
