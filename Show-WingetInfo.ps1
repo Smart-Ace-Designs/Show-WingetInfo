@@ -37,7 +37,7 @@ $ToolStripStatusLabelMain = New-Object -TypeName System.Windows.Forms.ToolStripS
 $ShowFormMain =
 {
     $FormWidth = 800
-    $FormHeight = 380
+    $FormHeight = 410
 
     $FormMain.Icon = [System.Drawing.Icon]::ExtractAssociatedIcon((Get-Process -Id $PID).Path)
     $FormMain.Text = "Winget Tool"
@@ -56,11 +56,10 @@ $ShowFormMain =
 
     $LabelApps.Location = New-Object -TypeName System.Drawing.Point(15,15)
     $LabelApps.AutoSize = $true
-    $LabelApps.Text = "Installed Applications:"
     $GroupBoxMain.Controls.Add($LabelApps)
     
     $DataGridViewApps.Location = New-Object -TypeName System.Drawing.Point(15,35)
-    $DataGridViewApps.Size = New-Object -TypeName System.Drawing.Size(($FormWidth - 50),($FormHeight - 135))
+    $DataGridViewApps.Size = New-Object -TypeName System.Drawing.Size(($FormWidth - 50),($FormHeight - 165))
     $DataGridViewApps.TabStop = $false
     $DataGridViewApps.RowTemplate.Height = 20
     $DataGridViewApps.DataBindings.DefaultDataSourceUpdateMode = [System.Windows.Forms.DataSourceUpdateMode]::OnValidation
@@ -77,11 +76,11 @@ $ShowFormMain =
     $DataGridViewApps.Columns[2].Name = "Update Available"
     $GroupBoxMain.Controls.Add($DataGridViewApps)
 
-    $CheckBoxOutdated.Location = New-Object -TypeName System.Drawing.Point(15,($FormHeight - 60))
+    $CheckBoxOutdated.Location = New-Object -TypeName System.Drawing.Point(15,($FormHeight - 115))
     $CheckBoxOutdated.Text = "Outdated Applications"
     $CheckBoxOutdated.AutoSize = $true
     $CheckBoxOutdated.Add_CheckedChanged($CheckBoxOutdated_CheckedChanged)
-    $FormMain.Controls.Add($CheckBoxOutdated)
+    $GroupBoxMain.Controls.Add($CheckBoxOutdated)
 
     $ButtonRun.Location = New-Object -TypeName System.Drawing.Point(($FormWidth - 175),($FormHeight - 60))
     $ButtonRun.Size = New-Object -TypeName System.Drawing.Size(75,25)
@@ -197,7 +196,9 @@ $FormMain_Shown =
     Invoke-FormAction -Action {
         try
         {
+            $LabelApps.Text = "Building list..."
             Get-WingetData
+            $LabelApps.Text = "Installed Applications:"
         }
         catch
         {
@@ -214,11 +215,7 @@ $FormMain_Shown =
 $ButtonRun_Click =
 {
     Invoke-FormAction -Action {
-        try
-        {
-            if ($CheckBoxOutdated.Checked) {Get-WingetData -UpdatesOnly}
-            else {Get-WingetData}
-        }
+        try {Get-WingetData -UpdatesOnly:$CheckBoxOutdated.Checked}
         catch
         {
             [void][System.Windows.Forms.MessageBox]::Show(
@@ -234,11 +231,7 @@ $ButtonRun_Click =
 $CheckBoxOutdated_CheckedChanged =
 {
     Invoke-FormAction -Action {
-        try
-        {
-            if ($CheckBoxOutdated.Checked) {Get-WingetData -UpdatesOnly}
-            else {Get-WingetData}
-        }
+        try {Get-WingetData -UpdatesOnly:$CheckBoxOutdated.Checked}
         catch
         {
             [void][System.Windows.Forms.MessageBox]::Show(
